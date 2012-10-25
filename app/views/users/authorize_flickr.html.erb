@@ -1,0 +1,7 @@
+<% content_for :title, "Authorize flickr" %>
+<% content_for :extra_class, "one-col"%>
+
+<div id="two">
+  <p>Next, you'll need to authorize us to post to your flickr account.</p>
+  <div class="btn_black"><a href="<%= @flickr.auth.url(:write) %>">Authorize</a></div>
+</div>

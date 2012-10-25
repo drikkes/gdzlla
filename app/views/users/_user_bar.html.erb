@@ -1,0 +1,8 @@
+<div id="user_bar">
+<% if signed_in? -%>
+  <div id="user-bar-greeting">Hi, <%= link_to current_user.login, account_path %></div>
+  <div id="user-bar-action"  >(<%= link_to "Sign in as a different user", logout_path %>)</div>
+<% else -%>
+  <div id="user-bar-action"  ><%= link_to "Authenticate with twitter",  login_path %></div>
+<% end -%>
+</div>
