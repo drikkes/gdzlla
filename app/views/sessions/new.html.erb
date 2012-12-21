@@ -1,11 +1,10 @@
 <% content_for :title, "Log in to Twitter" %>
-<% content_for :extra_class, "one-col"%>
+<% content_for :bodyclass, "one-col"%>
 <% @user.password = nil %>
 
-<%= error_messages_for :user %>
 <% form_for(:user, :url => authenticate_path, :html => {:class => 'one'}) do |f| -%>
 <%= label_tag 'Twitter Username' %>
-<%= f.text_field :login, :autocorrect => 'off', :autocapitalize => 'off' %>
+<%= f.text_field :username, :autocorrect => 'off', :autocapitalize => 'off' %>
 
 <%= label_tag 'Twitter Password' %>
 <%= f.password_field :password %>

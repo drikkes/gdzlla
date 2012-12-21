@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Gdzlla::Application.load_tasks
+GDZLLA::Application.load_tasks

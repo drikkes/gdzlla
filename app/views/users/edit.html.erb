@@ -1,44 +1,36 @@
 <% content_for :title, "Your Account" %>
-<% content_for :extra_class, 'one-col settings' %>
+<% content_for :bodyclass, 'one-col settings' %>
 
 <h2>Your account settings</h2>
 <div class="settings-wrap">
 
-<%# @user.password = nil %>
-<%= error_messages_for :user %>
-<% form_for :user, :url => update_account_path do |f| -%>
+  <%= form_for @user do |f| %>
 
-<%#= label_tag 'Twitter Username' %>
-<%#= f.text_field :login %>
-
-<%#= label_tag 'Twitter Password' %>
-<%#= f.password_field :password %>
-
-<%= submit_tag 'Save Settings', :class => 'submit-btn' %>
-
-<ul class="more-options">
-  <li><%= link_to '- Re-authorize flickr', authorize_path %></li>
-  <% if !@user.photosets.blank? %>
-  <li><label for="default_photoset">- Use photoset:</label>
-    <select id="default_photoset" name="user[photoset]">
-      <option value="">---None---</option>
-      <% for photoset in @user.photosets %>
-      <option value="<%= photoset.id %>" <% if @user.photoset == photoset.id %>selected<% end %>><%=h photoset.title %></option>
+    <ul class="more-options">
+      <li><%= link_to '- Re-authorize flickr', setup_flickr_for_user_path(@user) %></li>
+      <% if !@user.photosets.blank? %>
+      <li><label for="default_photoset">- Use photoset:</label>
+        <select id="default_photoset" name="user[photoset]">
+          <option value="">---None---</option>
+          <% @user.photosets.each do |photoset| %>
+          <option value="<%= photoset.id %>" <% if @user.photoset == photoset.id %>selected<% end %>><%=h photoset.title %></option>
+          <% end %>
+          </select>
+      </li>
       <% end %>
-      </select>
-  </li>
-  <% end %>
-  <li><label for="url_type">- Short URL:</label>
-      <select id="url_type" name="user[url_type]">
-        <% for type in URL_TYPES %>
-        <option value="<%= type[0] %>" <% if @user.url_type == type[0] %>selected<% end %>><%=h type[1] %></option>
-        <% end %>
-        </select>
-    </li>
-  <li><%= link_to("- Delete account", { :action => "destroy", :id => @user },
-  :confirm => "Are you really, srsly sure you want to delete your account?",
-  :method => :delete) %></li>
-</ul>
+      <li><label for="url_type">- Short URL:</label>
+          <select id="url_type" name="user[url_type]">
+            <% Post.url_choices.each do |type, url| %>
+            <option value="<%= type %>" <% if @user.url_type == type %>selected<% end %>><%=h url %></option>
+            <% end %>
+            </select>
+        </li>
+      <li><%= link_to("- Delete account", user_path(@user),
+      :confirm => "Are you really, srsly sure you want to delete your account?",
+      :method => :delete) %></li>
+    </ul>
 
-<% end -%>
+    <%= submit_tag 'Save Settings', :class => 'submit-btn' %>
+
+  <% end %>
 </div>

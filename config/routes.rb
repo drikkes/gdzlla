@@ -1,23 +1,23 @@
-Gdzlla::Application.routes.draw do
+GDZLLA::Application.routes.draw do
 
-resources :sessions do
-end
+  resources :users, except: [:index, :create] do
+    resources :posts, only: [:index]
+    get 'setup-flickr', action: 'setup_flickr', as: :setup_flickr_for, on: :member
+  end
+  get 'finish-flickr' => 'users#finish_flickr', as: :finish_flickr
 
-resources :users, except: [:index] do
-  resources :posts, only: [:index]
-  match 'setup-twitter', action: 'setup_twitter'
-  match 'setup-flickr', action: 'setup_flickr'
-end
+  resources :posts, only: [:show, :create]
 
-resources :posts, only: [:show, :create]
+  get 'login' => 'sessions#new', as: :new_session
+  get 'logout' => 'sessions#destroy', as: :destroy_session
+  get 'oauth-callback' => 'sessions#create', as: :create_session
 
-post 'go/:version' => 'posts#create'
-post 'go' => 'posts#create_v1'
+  post 'go/:service' => 'posts#create_from'
+  post 'go' => 'posts#create'
 
-get 'account' => 'users#account'
+  get 'about' => 'content#about'
+  get 'help' => 'content#help'
 
-get 'about' => 'content#about'
-get 'help' => 'content#help'
-root to: 'content#index'
+  root to: 'content#index'
 
 end

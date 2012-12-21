@@ -2,21 +2,57 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :login,             type: String
-  field :url_type,          type: Symbol
-  field :photoset,          type: String
-  field :flickr_token,      type: String
-  field :twitter_pin,       type: String
-  field :twitter_rtoken,    type: String
-  field :twitter_rsecret,   type: String
+  field :user_id,              type: Integer  # twitter id, to keep posts correlated when sn changes
+  field :username,             type: String
+  field :url_type,             type: Symbol,  default: 'gdzlla'
+  field :strip_tags,           type: Boolean, default: false
+  field :photoset,             type: String
+  field :flickr_token,         type: String
+  field :twitter_token,        type: String
+  field :twitter_secret,       type: String
 
-  has_many :posts
+  has_many :posts, :dependent => :destroy
 
-  index login: 1
+  index username: 1
 
   def to_param
-    login
+    username
   end
 
+  def flickr_token=(token)
+    @flickr = nil
+    @photosets = nil
+    @flickr_token = token
+  end
+
+  def twitter_token=(token)
+    @twitter = nil
+    @twitter_token = token
+  end
+
+  def twitter_secret=(secret)
+    @twitter = nil
+    @twitter_secret = secret
+  end
+
+  def photosets
+    @photosets ||= flickr_client.photosets.get_list rescue nil
+  end
+
+  def timeline
+    @timeline ||= twitter_client.user_timeline username
+  end
+
+  # protected
+
+  def flickr_client
+    client_opts = {key: GDZLLA.setting(:flickr_key), secret: GDZLLA.setting(:flickr_secret)}
+    client_opts.merge!(token: flickr_token) unless flickr_token.blank?
+    @flickr ||= Flickr.new(client_opts)
+  end
+
+  def twitter_client
+    @twitter ||= Twitter::Client.new(oauth_token: twitter_token, oauth_token_secret: twitter_secret)
+  end
 
 end

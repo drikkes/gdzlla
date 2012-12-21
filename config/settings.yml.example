@@ -7,26 +7,25 @@ development:
   <<: *defaults
   twitter_consumer_key:
   twitter_consumer_secret:
-  twitter_access_key:
-  twitter_access_secret:
+  twitter_oauth_token:
+  twitter_oauth_token_secret:
   twitter_username:
-  twitter_password:
 
 test:
   <<: *defaults
   twitter_consumer_key:
   twitter_consumer_secret:
-  twitter_access_key:
-  twitter_access_secret:
+  twitter_oauth_token:
+  twitter_oauth_token_secret:
   twitter_username:
-  twitter_password:
 
 production:
   <<: *defaults
   twitter_consumer_key: <%= ENV['TWITTER_CONSUMER_KEY'] %>
   twitter_consumer_secret: <%= ENV['TWITTER_CONSUMER_SECRET'] %>
-  twitter_access_key: <%= ENV['TWITTER_ACCESS_KEY'] %>
-  twitter_access_secret: <%= ENV['TWITTER_ACCESS_SECRET'] %>
+  twitter_oauth_token: <%= ENV['TWITTER_OAUTH_KEY'] %>
+  twitter_oauth_token_secret: <%= ENV['TWITTER_OAUTH_SECRET'] %>
   twitter_username: <%= ENV['TWITTER_USERNAME'] %>
-  twitter_password: <%= ENV['TWITTER_PASSWORD'] %>
+  twitter_down: <%= ENV['TWITTER_DOWN'] %>
+  flickr_down: <%= ENV['FLICKR_DOWN'] %>
 

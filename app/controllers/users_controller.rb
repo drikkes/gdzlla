@@ -1,19 +1,55 @@
 class UsersController < ApplicationController
+  before_filter :load_user_from_url, only: [:show, :edit, :update, :destroy, :setup_flickr]
+  before_filter :authentication_required, only: [:edit, :update, :destroy, :finish_flickr]
+  before_filter :ensure_user_is_current_user, only: [:edit, :update, :destroy]
+
   def show
   end
 
   def new
   end
 
-  def create
-  end
-
   def edit
   end
 
   def update
+    if @user.update_attributes(params[:user])
+      flash[:success] = "Account udpated!"
+      redirect_to user_path @user
+    else
+
+    end
   end
 
   def destroy
+    if @user.destroy
+      flash[:success] = "Welp. You deleted your account. Sorry to see you go!"
+      redirect_to destroy_session_path
+    else
+      flash[:error] = "Bwahahahahhaha! Account deletion failed. Seriously though, I have no idea why."
+      redirect_to user_path @user
+    end
+  end
+
+  def setup_flickr
+  end
+
+  def finish_flickr
+    @flickr = @user.flickr_client
+    if params.include?(:frob)
+      @flickr.auth.frob = params[:frob]
+      @user.update_attribute(:flickr_token, @flickr.auth.token.token)
+      flash[:success] = 'Flickr was successfully authorized, you\'re g2g!'
+      redirect_to user_path @user
+    else
+      flash[:error] = 'Whoops! Flickr failed to authorize.'
+      render :action => 'setup_flickr'
+    end
+  end
+
+  protected
+
+  def load_user_from_url
+    @user = User.where(username: params[:id]).first
   end
 end
