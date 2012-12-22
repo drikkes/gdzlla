@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  # ssl_required :new, :create
 
   def new
     session[:request_token] = GDZLLA.twitter_consumer.get_request_token oauth_callback: create_session_url

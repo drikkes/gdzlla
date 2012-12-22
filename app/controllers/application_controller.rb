@@ -1,14 +1,9 @@
 class ApplicationController < ActionController::Base
-  include SslRequirement
 
   helper :all
   protect_from_forgery
 
   protected
-
-    def ssl_required?
-      RAILS_ENV != 'development' && super
-    end
 
     def current_user
       @current_user ||= User.find(session[:user_id]) rescue nil

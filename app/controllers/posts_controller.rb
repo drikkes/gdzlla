@@ -2,7 +2,6 @@ class PostsController < ApplicationController
   before_filter :reset_session, except: [:show]
   before_filter :authenticate_with_oauth_echo, except: [:show]
   skip_before_filter :verify_authenticity_token
-  ssl_allowed
 
   def show
     @post = Post.where(short_id: params[:id])
