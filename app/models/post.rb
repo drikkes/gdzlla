@@ -55,7 +55,7 @@ class Post
   index short_id: 1
 
   before_validation :post_to_flickr
-  before_validation :generate_short_id
+  after_save :generate_short_id
 
   def to_param
     short_id
