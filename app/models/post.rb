@@ -130,8 +130,10 @@ class Post
       flickr_photo = user.flickr_client.photos.find_by_id(uploaded.photoid.to_s)
       self.flickr_data = flickr_photo.as_json
                                      .reject{|key| key == 'flickr' }
+                                     .as_json  #<= omg, I am actually doing this on purpose. flickr-fu seems to implement its own as_json, not a deep conversion.
                                      .symbolize_keys
                                      .merge(photopage_url: flickr_photo.photopage_url.to_s)
+                                     .collect{|k,v| v = v.to_s if [:owner, :title].include? k }
     end
   end
 
