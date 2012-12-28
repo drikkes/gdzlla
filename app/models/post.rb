@@ -65,21 +65,21 @@ class Post
     if user.strip_tags?
       title = message.sub(/( #[^\s]+ ?)*$/, '')
     else
-      title = message.gsub(tag_pattern, '<a href="http://twitter.com/search?q=%23\1">#\1</a>')
+      title = message.gsub(self.class.tag_pattern, '<a href="http://twitter.com/search?q=%23\1">#\1</a>')
     end
-    title.gsub(self.username_pattern, '<a href="http://twitter.com/\1">@\1</a>')
+    title.gsub(self.class.username_pattern, '<a href="http://twitter.com/\1">@\1</a>')
   end
 
   def description
-    self.defaults[:description]
+    self.class.defaults[:description]
   end
 
   def tags
-    message.scan(self.tag_pattern) + self.defaults[:tags]
+    message.scan(self.class.tag_pattern) + self.class.defaults[:tags]
   end
 
   def url
-    "#{self.url_choices[user.url_type]}#{short_id}"
+    "#{self.class.url_choices[user.url_type]}#{short_id}"
   end
 
   def flickr_url
@@ -120,7 +120,7 @@ class Post
   end
 
   def post_to_flickr
-    uploaded = user.flickr_client.uploader.upload( media.path, self.defaults.merge(title: title))
+    uploaded = user.flickr_client.uploader.upload( media.path, self.class.defaults.merge(title: title))
     if uploaded.photoid.blank?
       self.errors[:base] << "Failed to upload to flickr"
     else
