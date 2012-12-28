@@ -120,8 +120,10 @@ class Post
   end
 
   def post_to_flickr
-    puts media.path, self.class.defaults.merge(title: title)
-    uploaded = user.flickr_client.uploader.upload(media.path, self.class.defaults.merge(title: title))
+    options = self.class.defaults.merge(title: title)
+    options [:tags].push tags
+    options[:tags] = options[:tags].join(' ')
+    uploaded = user.flickr_client.uploader.upload(media.path, options)
     if uploaded.photoid.blank?
       self.errors[:base] << "Failed to upload to flickr"
     else
