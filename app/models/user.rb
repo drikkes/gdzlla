@@ -25,6 +25,10 @@ class User
     @flickr_token = token
   end
 
+  def strip_tags?
+    strip_tags
+  end
+
   def twitter_token=(token)
     @twitter = nil
     @twitter_token = token

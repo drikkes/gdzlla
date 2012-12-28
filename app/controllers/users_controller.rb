@@ -40,10 +40,10 @@ class UsersController < ApplicationController
     if params.include?(:frob)
       @flickr.auth.frob = params[:frob]
       @user.update_attribute(:flickr_token, @flickr.auth.token)
-      flash[:success] = 'Flickr was successfully authorized, you\'re g2g!'
-      redirect_to user_path @user
+      flash[:success] = 'Flickr was successfully authorized!'
+      redirect_to help_path
     else
-      flash[:error] = 'Whoops! Flickr failed to authorize.'
+      flash[:error] = 'Flickr failed to authorize :/'
       render :action => 'setup_flickr'
     end
   end
