@@ -55,7 +55,8 @@ class Post
   index short_id: 1
 
   before_validation :post_to_flickr
-  after_save :generate_short_id
+  before_validation :generate_short_id
+  after_save :extract_metadata
 
   def to_param
     short_id
@@ -133,7 +134,6 @@ class Post
                                      .as_json  #<= omg, I am actually doing this on purpose. flickr-fu seems to implement its own as_json, not a deep conversion.
                                      .symbolize_keys
                                      .merge(photopage_url: flickr_photo.photopage_url.to_s)
-                                     .collect{|k,v| v = v.to_s if [:owner, :title].include? k }
     end
   end
 
