@@ -124,10 +124,10 @@ class Post
     options [:tags].push tags
     options[:tags] = options[:tags].join(' ')
     uploaded = user.flickr_client.uploader.upload(media.path, options)
-    if uploaded.photoid.blank?
+    if uploaded.photoid.to_s.blank?
       self.errors[:base] << "Failed to upload to flickr"
     else
-      flickr_photo = flickr_client.photos.find_by_id(uploaded.photoid)
+      flickr_photo = user.flickr_client.photos.find_by_id(uploaded.photoid.to_s)
       self.flickr_data = flickr_photo.as_json
                                      .reject{|key| key == 'flickr' }
                                      .symbolize_keys
