@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
   def create
     if current_user && params[:media].present? && current_user.flickr_token.present?
-      @post = post.new(params)
+      @post = Post.new(params)
       @post.user = current_user
       if @post.save
         response = @post.as_response
