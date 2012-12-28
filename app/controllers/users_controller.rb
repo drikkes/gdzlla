@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @flickr = @user.flickr_client
     if params.include?(:frob)
       @flickr.auth.frob = params[:frob]
-      @user.update_attribute(:flickr_token, @flickr.auth.token.token)
+      @user.update_attribute(:flickr_token, @flickr.auth.token)
       flash[:success] = 'Flickr was successfully authorized, you\'re g2g!'
       redirect_to user_path @user
     else
