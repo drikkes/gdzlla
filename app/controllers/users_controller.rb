@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   end
 
   def finish_flickr
+    @user = current_user
     @flickr = @user.flickr_client
     if params.include?(:frob)
       @flickr.auth.frob = params[:frob]
