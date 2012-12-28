@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :load_user_from_url, only: [:show, :edit, :update, :destroy, :setup_flickr]
-  before_filter :authentication_required, only: [:edit, :update, :destroy, :finish_flickr]
-  before_filter :ensure_user_is_current_user, only: [:edit, :update, :destroy]
+  before_filter :authentication_required, only: [:edit, :update, :destroy, :setup_flickr, :finish_flickr]
+  before_filter :ensure_user_is_current_user, only: [:edit, :update, :destroy, :setup_flickr]
 
   def show
   end

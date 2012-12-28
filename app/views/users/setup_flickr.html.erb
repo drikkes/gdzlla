@@ -3,5 +3,5 @@
 
 <div id="two">
   <p>Next, you'll need to authorize us to post to your flickr account.</p>
-  <div class="btn_black"><a href="<%= @flickr.auth.url(:write) %>">Authorize</a></div>
+  <div class="btn_black"><a href="<%= @user.flickr_client.auth.url(:write) %>">Authorize</a></div>
 </div>
