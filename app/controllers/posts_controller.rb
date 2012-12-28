@@ -49,7 +49,7 @@ class PostsController < ApplicationController
       logger.info "headers: #{verify_credentials_authorization}"
       auth_response = HTTParty.get(auth_service_provider, :format => :json, :headers => {'Authorization' => verify_credentials_authorization})
       if !auth_response['screen_name'].blank?
-        log_in_user User.first(username: auth_response['screen_name'])
+        log_in_user User.where(username: auth_response['screen_name']).first
         return true
       end
     end
