@@ -19,7 +19,7 @@ module GDZLLA
     config.middleware.insert_before('Rack::Lock', 'Rack::Rewrite') do
       r301 %r{(.+)/$}, '$1'
     end
-    config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = 'America/New_York'
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
     config.active_support.escape_html_entities_in_json = true
