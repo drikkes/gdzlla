@@ -28,7 +28,7 @@ class Post
   def self.defaults
     {
       title: 'Photo',
-      description: CGI::escape('Uploaded from twitter via <a href="http://gdzl.la">GDZLLA</a>'),
+      description: 'Uploaded from twitter via <a href="http://gdzl.la">GDZLLA</a>',
       tags: ['gdzlla'],
       is_public: true
     }
@@ -120,7 +120,8 @@ class Post
   end
 
   def post_to_flickr
-    uploaded = user.flickr_client.uploader.upload( media.path, self.class.defaults.merge(title: CGI::escape(title)))
+    puts media.path, self.class.defaults.merge(title: title)
+    uploaded = user.flickr_client.uploader.upload(media.path, self.class.defaults.merge(title: title))
     if uploaded.photoid.blank?
       self.errors[:base] << "Failed to upload to flickr"
     else
