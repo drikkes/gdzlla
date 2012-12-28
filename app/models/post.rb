@@ -138,7 +138,7 @@ class Post
   end
 
   def generate_short_id
-    self.short_id = Base58.encode(flickr_data[:id])
+    self.short_id = Base58.encode(flickr_data[:id].to_i)
   end
 
   def get_tweet_data
