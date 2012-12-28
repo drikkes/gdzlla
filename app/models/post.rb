@@ -67,7 +67,7 @@ class Post
     else
       title = message.gsub(tag_pattern, '<a href="http://twitter.com/search?q=%23\1">#\1</a>')
     end
-    title.gsub(username_pattern, '<a href="http://twitter.com/\1">@\1</a>')
+    title.gsub(self.username_pattern, '<a href="http://twitter.com/\1">@\1</a>')
   end
 
   def description
@@ -75,7 +75,7 @@ class Post
   end
 
   def tags
-    message.scan(tag_pattern) + self.defaults[:tags]
+    message.scan(self.tag_pattern) + self.defaults[:tags]
   end
 
   def url
