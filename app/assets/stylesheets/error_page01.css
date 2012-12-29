@@ -30,7 +30,7 @@ html, .error_page {
   width: 260px;
   text-indent: -9999em;
   margin: 0 auto;
-  background: url(../smash_sprites02.png) no-repeat;
+  background: url(smash_sprites02.png) no-repeat;
 }
 .error_page h2#smash_page {
   background-position: -520px bottom;
@@ -40,7 +40,7 @@ html, .error_page {
 }
 
 .error_page h2 a {
-  background: url(../smash_sprites02.png) no-repeat;
+  background: url(smash_sprites02.png) no-repeat;
   display: block;
   height: 100%;
 }
