@@ -26,5 +26,6 @@ module GDZLLA
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.assets.enabled = true
     config.assets.version = '1.0'
+    config.assets.paths << "#{Rails.root}/app/assets/html"
   end
 end
