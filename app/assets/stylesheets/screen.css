@@ -67,7 +67,7 @@ div.btn_black a:hover {text-decoration:none;}
 #two p {margin-bottom:1em;}
 /*--------- 3 ------------*/
 #three {margin-top: 25px; padding-left: 55px; background: url(bg_three.png) 0 0 no-repeat;width:300px;margin:0px auto;}
-#three h2 {margin-top: 15px; margin-bottom: 20px; background: url(bg_blackopacity.png) 0 0 no-repeat; height: 45px; padding-top: 7px; padding-left: 15px;}
+#three h2 {font-size:24px; margin-top: 15px; margin-bottom: 20px; background: url(bg_blackopacity.png) 0 0 no-repeat; height: 45px; padding-top: 7px; padding-left: 15px;}
 #three img {margin-bottom:1em;}
 #footer {clear: both; text-align: right;}
 #footer p {color: #ecffe4; font-size: 12px;}
