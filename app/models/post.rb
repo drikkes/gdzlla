@@ -116,7 +116,7 @@ class Post
       ns.attributes.each do |att|
         self.xmp_data[name][att] = ns.send(att).inspect
       end
-    end
+    end rescue nil
     self.xmp_data = xmp_data.symbolize_keys
   end
 
