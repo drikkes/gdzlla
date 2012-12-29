@@ -117,7 +117,7 @@ class Post
         self.xmp_data[name][att] = ns.send(att).inspect
       end
     end rescue nil
-    self.xmp_data = xmp_data.symbolize_keys
+    self.xmp_data = xmp_data.symbolize_keys rescue nil
   end
 
   def post_to_flickr
