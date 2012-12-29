@@ -83,6 +83,14 @@ class Post
     "#{self.class.url_choices[user.url_type]}#{short_id}"
   end
 
+  def img_url
+    "http://farm#{flickr_farm.to_s}.static.flickr.com/#{flickr_server.to_s}/#{flickr_id.to_s}_#{flickr_secret}.jpg"
+  end
+
+  def thumb_url
+    "http://farm#{flickr_farm.to_s}.static.flickr.com/#{flickr_server.to_s}/#{flickr_id.to_s}_#{flickr_secret}_s.jpg"
+  end
+
   def flickr_url
     flickr_data[:photopage_url]
   end

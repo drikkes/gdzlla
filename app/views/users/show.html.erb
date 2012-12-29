@@ -11,7 +11,7 @@ Recent posts from <a href="http://twitter.com/<%= @user.username %>" target="_bl
 <ul class="posts">
 <% if @user.posts.any? %>
     <% @user.posts.each do |post| %>
-      <li><a href="<%= post.short_url %>"><img src="<%= post.thumb_url %>" alt="photo" title="Posted by <%= post.owner_name %>" /></a></li>
+      <li><a href="<%= post.flickr_url %>"><img src="<%= post.thumb_url %>" alt="photo" title="Posted by <%= @user.username %>" /></a></li>
     <% end %>
 <% else %>
     <p class="empty">
