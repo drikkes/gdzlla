@@ -91,7 +91,7 @@ class Post
     {
       id: short_id,
       text: title,
-      url: short_url,
+      url: url,
       width: nil,
       height: nil,
       size: nil,
