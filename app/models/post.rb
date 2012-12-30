@@ -88,7 +88,7 @@ class Post
   end
 
   def thumb_url
-    "http://farm#{flickr_data['farm'].to_s}.static.flickr.com/#{flickr_data['server'].to_s}/#{flickr_data['id'].to_s}_#{flickr_data[:secret]}_s.jpg"
+    "http://farm#{flickr_data['farm'].to_s}.static.flickr.com/#{flickr_data['server'].to_s}/#{flickr_data['id'].to_s}_#{flickr_data['secret']}_s.jpg"
   end
 
   def flickr_url
