@@ -84,15 +84,15 @@ class Post
   end
 
   def img_url
-    "http://farm#{flickr_data[:farm].to_s}.static.flickr.com/#{flickr_data[:server].to_s}/#{flickr_data[:id].to_s}_#{flickr_data[:secret]}.jpg"
+    "http://farm#{flickr_data['farm'].to_s}.static.flickr.com/#{flickr_data['server'].to_s}/#{flickr_data['id'].to_s}_#{flickr_data['secret']}.jpg"
   end
 
   def thumb_url
-    "http://farm#{flickr_data[:farm].to_s}.static.flickr.com/#{flickr_data[:server].to_s}/#{flickr_data[:id].to_s}_#{flickr_data[:secret]}_s.jpg"
+    "http://farm#{flickr_data['farm'].to_s}.static.flickr.com/#{flickr_data['server'].to_s}/#{flickr_data['id'].to_s}_#{flickr_data[:secret]}_s.jpg"
   end
 
   def flickr_url
-    flickr_data[:photopage_url]
+    flickr_data['photopage_url']
   end
 
   def as_response
@@ -116,7 +116,7 @@ class Post
 
   def extract_metadata
     img = EXIFR::JPEG.new(media.path)
-    self.exif_data = img.to_hash.symbolize_keys
+    self.exif_data = img.to_hash
     xmp = XMP.parse(img)
     xmp.namespaces.each do |name|
       ns = xmp.send name
@@ -125,7 +125,7 @@ class Post
         self.xmp_data[name][att] = ns.send(att).inspect
       end
     end rescue nil
-    self.xmp_data = xmp_data.symbolize_keys rescue nil
+    self.xmp_data = xmp_data
   end
 
   def post_to_flickr
@@ -140,13 +140,12 @@ class Post
       self.flickr_data = flickr_photo.as_json
                                      .reject{|key| key == 'flickr' }
                                      .as_json  #<= omg, I am actually doing this on purpose. flickr-fu seems to implement its own as_json, not a deep conversion.
-                                     .symbolize_keys
                                      .merge(photopage_url: flickr_photo.photopage_url.to_s)
     end
   end
 
   def generate_short_id
-    self.short_id = Base58.encode(flickr_data[:id].to_i)
+    self.short_id = Base58.encode(flickr_data['id'].to_i)
   end
 
   def get_tweet_data

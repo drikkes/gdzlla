@@ -4,7 +4,7 @@ class User
 
   field :user_id,              type: Integer  # twitter id, to keep posts correlated when sn changes
   field :username,             type: String
-  field :url_type,             type: Symbol,  default: 'gdzlla'
+  field :url_type,             type: Symbol,  default: :gdzlla
   field :strip_tags,           type: Boolean, default: false
   field :photoset,             type: String
   field :flickr_token,         type: String
